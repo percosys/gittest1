@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KVM Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="header-left">
+      <h1>KVM Dashboard</h1>
+      <span class="device-count" id="deviceCount"></span>
+    </div>
+    <div class="header-right">
+      <div class="status-indicator" id="statusIndicator">
+        <span class="status-dot"></span>
+        <span class="status-text">Live</span>
+      </div>
+      <select id="layoutSelect" title="Grid layout">
+        <option value="auto">Auto Grid</option>
+        <option value="1">1 Column</option>
+        <option value="2">2 Columns</option>
+        <option value="3">3 Columns</option>
+        <option value="4">4 Columns</option>
+      </select>
+    </div>
+  </header>
+  <main id="grid" class="grid"></main>
+  <script src="app.js"></script>
+</body>
+</html>

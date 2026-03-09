@@ -1,0 +1,12 @@
+services:
+  kvm-dashboard:
+    build: .
+    container_name: kvm-dashboard
+    ports:
+      - "3000:3000"
+    volumes:
+      # Mount your config file so you can edit it without rebuilding
+      - ./config.yaml:/app/config.yaml:ro
+    environment:
+      - PORT=3000
+    restart: unless-stopped
