@@ -19,14 +19,38 @@
       </div>
       <select id="layoutSelect" title="Grid layout">
         <option value="auto">Auto Grid</option>
+        <option value="1x1">1x1 (Single)</option>
+        <option value="2x2">2x2 (4)</option>
+        <option value="3x3">3x3 (9)</option>
+        <option value="4x4">4x4 (16)</option>
+        <option value="5x5">5x5 (25)</option>
+        <option value="6x6">6x6 (36)</option>
         <option value="1">1 Column</option>
         <option value="2">2 Columns</option>
         <option value="3">3 Columns</option>
         <option value="4">4 Columns</option>
+        <option value="5">5 Columns</option>
+        <option value="6">6 Columns</option>
       </select>
+      <div class="paging-controls" id="pagingControls" style="display: none;">
+        <button class="btn-page" id="btnFirst" title="First page">&#9198;</button>
+        <button class="btn-page" id="btnPrev" title="Previous page">&#9664;</button>
+        <span class="page-info" id="pageInfo">1 / 1</span>
+        <button class="btn-page" id="btnNext" title="Next page">&#9654;</button>
+        <button class="btn-page" id="btnLast" title="Last page">&#9197;</button>
+      </div>
     </div>
   </header>
   <main id="grid" class="grid"></main>
+  <footer id="footer" class="footer" style="display: none;">
+    <div class="paging-controls paging-controls-bottom">
+      <button class="btn-page" id="btnFirstBottom" title="First page">&#9198;</button>
+      <button class="btn-page" id="btnPrevBottom" title="Previous page">&#9664;</button>
+      <span class="page-info" id="pageInfoBottom">1 / 1</span>
+      <button class="btn-page" id="btnNextBottom" title="Next page">&#9654;</button>
+      <button class="btn-page" id="btnLastBottom" title="Last page">&#9197;</button>
+    </div>
+  </footer>
   <script src="app.js"></script>
 </body>
 </html>
