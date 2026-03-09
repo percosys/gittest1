@@ -2,10 +2,13 @@
 
 A CCTV-style monitoring dashboard for JetKVM and PiKVM devices. View all your KVM streams in a single browser tab with a responsive grid layout.
 
+![KVM Dashboard](docs/screenshot.svg)
+
 ## Features
 
 - **PiKVM support** — Proxied snapshot polling with server-side authentication (credentials never exposed to the browser)
 - **JetKVM support** — Embedded device UI via iframe with full WebRTC video
+- **ATX power controls** — Power on, off, force off, and reset buttons for PiKVM devices with live power LED indicator
 - **Responsive grid** — Auto-fit layout with manual column override (1–4 columns)
 - **Fullscreen mode** — Click to expand any device to fullscreen, ESC to exit
 - **Direct access** — Open any device's native UI in a new tab from the dashboard
