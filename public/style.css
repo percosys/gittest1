@@ -201,6 +201,87 @@ select:hover {
   background: rgba(255, 255, 255, 0.2);
 }
 
+/* Power controls */
+.power-controls {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-right: 8px;
+  padding-right: 8px;
+  border-right: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.power-led {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #444;
+  margin-right: 4px;
+  transition: background 0.3s;
+}
+
+.power-led.on {
+  background: var(--online);
+  box-shadow: 0 0 6px var(--online);
+}
+
+.power-led.off {
+  background: var(--offline);
+}
+
+.btn-power {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text);
+  width: 26px;
+  height: 26px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+}
+
+.btn-power:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.btn-power:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn-power.sending {
+  animation: btn-pulse 0.5s ease-in-out infinite alternate;
+}
+
+@keyframes btn-pulse {
+  from { opacity: 0.4; }
+  to { opacity: 1; }
+}
+
+.btn-power-on:hover {
+  border-color: var(--online);
+  color: var(--online);
+}
+
+.btn-power-off:hover {
+  border-color: #f59e0b;
+  color: #f59e0b;
+}
+
+.btn-power-force:hover {
+  border-color: var(--offline);
+  color: var(--offline);
+}
+
+.btn-power-reset:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
 /* Feed container */
 .feed-container {
   aspect-ratio: 16 / 9;

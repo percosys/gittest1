@@ -42,6 +42,8 @@
 
     const typeClass = device.type === 'pikvm' ? 'pikvm' : '';
 
+    const hasPower = device.type === 'pikvm';
+
     card.innerHTML = `
       <div class="device-header">
         <span class="device-name">
@@ -49,6 +51,15 @@
           ${escapeHtml(device.name)}
         </span>
         <div class="device-actions">
+          ${hasPower ? `
+          <div class="power-controls">
+            <span class="power-led" id="led-${device.id}" title="Power status"></span>
+            <button class="btn-power btn-power-on" data-action="on" title="Power On">&#9654;</button>
+            <button class="btn-power btn-power-off" data-action="off" title="Power Off (short press)">&#9724;</button>
+            <button class="btn-power btn-power-force" data-action="off_hard" title="Force Off (long press)">&#9632;</button>
+            <button class="btn-power btn-power-reset" data-action="reset" title="Reset">&#8635;</button>
+          </div>
+          ` : ''}
           <button class="btn-open" title="Open device UI">&#8599;</button>
           <button class="btn-fullscreen" title="Toggle fullscreen">&#9974;</button>
         </div>
@@ -83,6 +94,11 @@
       }
     });
 
+    // Power controls
+    if (hasPower) {
+      setupPowerControls(device, card);
+    }
+
     if (device.type === 'pikvm') {
       setupPikvmFeed(device, feedContainer, status);
     } else if (device.type === 'jetkvm') {
@@ -90,6 +106,73 @@
     }
 
     return card;
+  }
+
+  function setupPowerControls(device, card) {
+    const led = card.querySelector('.power-led');
+    const buttons = card.querySelectorAll('.btn-power');
+
+    // Poll power LED state
+    async function updateLed() {
+      try {
+        const res = await fetch(`/api/power/${device.id}`);
+        const data = await res.json();
+        const powerOn = data?.result?.leds?.power;
+        if (powerOn === true) {
+          led.classList.add('on');
+          led.classList.remove('off');
+          led.title = 'Power: ON';
+        } else if (powerOn === false) {
+          led.classList.remove('on');
+          led.classList.add('off');
+          led.title = 'Power: OFF';
+        } else {
+          led.classList.remove('on', 'off');
+          led.title = 'Power: Unknown';
+        }
+      } catch {
+        led.classList.remove('on', 'off');
+      }
+    }
+
+    updateLed();
+    setInterval(updateLed, 5000);
+
+    // Power action buttons
+    buttons.forEach(btn => {
+      btn.addEventListener('click', async (e) => {
+        e.stopPropagation();
+        const action = btn.dataset.action;
+
+        // Confirm destructive actions
+        if (action === 'off_hard') {
+          if (!confirm(`Force power off ${device.name}? This is equivalent to holding the power button.`)) return;
+        } else if (action === 'reset') {
+          if (!confirm(`Reset ${device.name}?`)) return;
+        }
+
+        btn.disabled = true;
+        btn.classList.add('sending');
+        try {
+          const res = await fetch(`/api/power/${device.id}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ action }),
+          });
+          const data = await res.json();
+          if (!res.ok) {
+            alert(`Power action failed: ${data.error}`);
+          }
+          // Refresh LED after a short delay
+          setTimeout(updateLed, 1500);
+        } catch (err) {
+          alert(`Power action failed: ${err.message}`);
+        } finally {
+          btn.disabled = false;
+          btn.classList.remove('sending');
+        }
+      });
+    });
   }
 
   function setupPikvmFeed(device, container, status) {
