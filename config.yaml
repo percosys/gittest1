@@ -1,0 +1,54 @@
+# KVM Dashboard Configuration
+# ============================
+# Define your KVM devices below. Each device needs a name, type, and host.
+#
+# Supported types:
+#   - pikvm:  PiKVM devices (supports snapshot proxy for live thumbnails)
+#   - jetkvm: JetKVM devices (embedded via iframe)
+#
+# For PiKVM devices, the dashboard proxies snapshots through the backend
+# to avoid CORS/auth issues in the browser. Credentials are kept server-side.
+#
+# For JetKVM devices, the dashboard embeds the device's web UI in an iframe.
+# If the device requires a password, you'll authenticate directly in the iframe.
+
+server:
+  port: 3000
+
+# Refresh interval in milliseconds for PiKVM snapshot polling
+snapshotInterval: 2000
+
+devices:
+  # Example PiKVM controlling 4 hosts via a KVM switch
+  - name: "PiKVM - Host 1"
+    type: pikvm
+    host: "https://192.168.1.100"
+    username: admin
+    password: admin
+
+  - name: "PiKVM - Host 2"
+    type: pikvm
+    host: "https://192.168.1.100"
+    username: admin
+    password: admin
+
+  - name: "PiKVM - Host 3"
+    type: pikvm
+    host: "https://192.168.1.100"
+    username: admin
+    password: admin
+
+  - name: "PiKVM - Host 4"
+    type: pikvm
+    host: "https://192.168.1.100"
+    username: admin
+    password: admin
+
+  # Example JetKVM devices
+  - name: "JetKVM - Server Rack 1"
+    type: jetkvm
+    host: "http://192.168.1.101"
+
+  - name: "JetKVM - Server Rack 2"
+    type: jetkvm
+    host: "http://192.168.1.102"
