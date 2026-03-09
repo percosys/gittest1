@@ -83,7 +83,7 @@ app.post('/api/power/:id', async (req, res) => {
     return res.status(404).json({ error: 'Device not found' });
   }
 
-  const validActions = ['on', 'off', 'off_hard', 'reset'];
+  const validActions = ['on', 'off', 'off_hard', 'reset_hard'];
   if (!validActions.includes(action)) {
     return res.status(400).json({ error: `Invalid action. Use: ${validActions.join(', ')}` });
   }

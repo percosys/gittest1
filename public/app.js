@@ -57,7 +57,7 @@
             <button class="btn-power btn-power-on" data-action="on" title="Power On">&#9654;</button>
             <button class="btn-power btn-power-off" data-action="off" title="Power Off (short press)">&#9724;</button>
             <button class="btn-power btn-power-force" data-action="off_hard" title="Force Off (long press)">&#9632;</button>
-            <button class="btn-power btn-power-reset" data-action="reset" title="Reset">&#8635;</button>
+            <button class="btn-power btn-power-reset" data-action="reset_hard" title="Reset">&#8635;</button>
           </div>
           ` : ''}
           <button class="btn-open" title="Open device UI">&#8599;</button>
@@ -147,7 +147,7 @@
         // Confirm destructive actions
         if (action === 'off_hard') {
           if (!confirm(`Force power off ${device.name}? This is equivalent to holding the power button.`)) return;
-        } else if (action === 'reset') {
+        } else if (action === 'reset_hard') {
           if (!confirm(`Reset ${device.name}?`)) return;
         }
 
